@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Email Form</title>
+    <title>Email Spoofer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
                 * {
@@ -199,7 +199,7 @@
     <div class="email-card">
         <div class="form-header">
             <i class="fas fa-envelope-open-text"></i>
-            <h1>Send Email</h1>
+            <h1>Send Spoofed Email</h1>
         </div>
 
         <?php
@@ -350,7 +350,7 @@
             statusMessages.forEach(msg => {
                 setTimeout(() => {
                     msg.style.display = 'none';
-                }, 2500); // 5 seconds
+                }, 2500); // 
             });
 
             // Clear form on page refresh
