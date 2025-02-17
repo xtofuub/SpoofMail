@@ -24,7 +24,6 @@ A sleek and responsive email form built with PHP, HTML, and CSS. This project de
    ```bash
    git clone https://github.com/xtofuub/SpoofMail.git
 
-
 2. **Set Up a Local Server**:  
    Use XAMPP, WAMP, or any local server environment to run the PHP code.  
    Place the project folder in the `htdocs` or `www` directory. 🖥️
