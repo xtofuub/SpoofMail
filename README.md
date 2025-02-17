@@ -28,7 +28,7 @@ A sleek and responsive email form built with PHP, HTML, and CSS. This project de
    Use XAMPP, WAMP, or any local server environment to run the PHP code.  
    Place the project folder in the `htdocs` or `www` directory. 🖥️
 
-3. **Configure PHP**:  
+3. **Configure PHP(IMPORTANT!!)**:  
    Ensure your PHP environment is configured to send emails. You may need to set up an SMTP server for testing. 🛠️📧
 
 4. **Open in Browser**:  
