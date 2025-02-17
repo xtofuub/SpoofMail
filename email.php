@@ -6,7 +6,7 @@
     <title>Modern Email Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * {
+                * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -174,6 +174,25 @@
                 padding: 1.5rem;
             }
         }
+		
+		.file-list {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+		
+		.status-message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            animation: fadeIn 0.5s ease, fadeOut 0.5s ease 5s forwards;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
     </style>
 </head>
 <body>
@@ -182,14 +201,79 @@
             <i class="fas fa-envelope-open-text"></i>
             <h1>Send Email</h1>
         </div>
-        
+
+        <?php
+        $output = '';
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Enable error reporting for debugging
+            error_reporting(E_ALL);
+            ini_set('display_errors', 1);
+
+            $to = $_POST['to'] ?? '';
+            $subject = $_POST['subject'] ?? '';
+            $message = $_POST['message'] ?? '';
+            $from = $_POST['from'] ?? '';
+            $from_name = $_POST['from_name'] ?? '';
+
+            // Validate required fields
+            if (empty($to) || empty($subject) || empty($message) || empty($from) || empty($from_name)) {
+                $output = "All fields are required.";
+            } else {
+                // Prepare headers
+                $headers = "From: $from_name <$from>\r\n";
+                $headers .= "MIME-Version: 1.0\r\n";
+                $headers .= "Content-Type: multipart/mixed; boundary=\"PHP-mixed-" . md5(time()) . "\"\r\n";
+
+                // Handle file attachments
+                $attachment = '';
+                if (!empty($_FILES['attachment']['name'][0])) {
+                    $file_count = count($_FILES['attachment']['name']);
+                    
+                    for ($i = 0; $i < $file_count; $i++) {
+                        if ($_FILES['attachment']['error'][$i] === UPLOAD_ERR_OK) {
+                            $file_name = $_FILES['attachment']['name'][$i];
+                            $file_tmp = $_FILES['attachment']['tmp_name'][$i];
+                            $file_data = chunk_split(base64_encode(file_get_contents($file_tmp)));
+
+                            $attachment .= "--PHP-mixed-" . md5(time()) . "\r\n";
+                            $attachment .= "Content-Type: application/octet-stream; name=\"$file_name\"\r\n";
+                            $attachment .= "Content-Transfer-Encoding: base64\r\n";
+                            $attachment .= "Content-Disposition: attachment; filename=\"$file_name\"\r\n\r\n";
+                            $attachment .= $file_data . "\r\n";
+                        }
+                    }
+                }
+
+                // Prepare email body
+                $body = "--PHP-mixed-" . md5(time()) . "\r\n";
+                $body .= "Content-Type: text/plain; charset=UTF-8\r\n\r\n";
+                $body .= $message . "\r\n\r\n";
+                $body .= $attachment;
+                $body .= "--PHP-mixed-" . md5(time()) . "--";
+
+                // Send email
+                if (mail($to, $subject, $body, $headers)) {
+                    $output = "Email sent successfully!";
+                    echo '<script>
+                        document.getElementById("emailForm").reset();
+                        document.getElementById("file-name").textContent = "Attach Files (Drag & Drop or Click)";
+                        document.getElementById("file-list").innerHTML = "";
+                    </script>';
+                } else {
+                    $error = error_get_last();
+                    $output = "Failed to send email. Error: " . ($error['message'] ?? 'Unknown error');
+                }
+            }
+        }
+        ?>
+
         <?php if ($_SERVER["REQUEST_METHOD"] == "POST"): ?>
             <div class="status-message <?php echo strpos($output, 'successfully') !== false ? 'success' : 'error'; ?>">
                 <?php echo $output; ?>
             </div>
         <?php endif; ?>
 
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" id="emailForm" autocomplete="off">
             <div class="form-group">
                 <label>Recipient Email</label>
                 <input type="email" name="to" required>
@@ -217,11 +301,12 @@
 
             <div class="form-group">
                 <div class="file-input">
-                    <input type="file" name="attachment" id="attachment">
+                    <input type="file" name="attachment[]" id="attachment" multiple>
                     <label class="file-label" for="attachment">
                         <i class="fas fa-paperclip"></i>
-                        <span>Attach File (Drag & Drop or Click)</span>
+                        <span id="file-name">Attach Files (Drag & Drop or Click)</span>
                     </label>
+                    <div class="file-list" id="file-list"></div>
                 </div>
             </div>
 
@@ -231,5 +316,53 @@
             </button>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // File selection handler
+            const fileInput = document.getElementById('attachment');
+            const fileNameSpan = document.getElementById('file-name');
+            const fileListDiv = document.getElementById('file-list');
+
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    const files = e.target.files;
+                    let fileNames = [];
+
+                    for (let i = 0; i < files.length; i++) {
+                        fileNames.push(files[i].name);
+                    }
+
+                    if (files.length === 0) {
+                        fileNameSpan.textContent = 'Attach Files (Drag & Drop or Click)';
+                        fileListDiv.innerHTML = '';
+                    } else {
+                        fileNameSpan.textContent = `${files.length} file(s) selected`;
+                        fileListDiv.innerHTML = fileNames.map(name => 
+                            `<div>• ${name}</div>`
+                        ).join('');
+                    }
+                });
+            }
+
+            // Auto-fade status messages
+            const statusMessages = document.querySelectorAll('.status-message');
+            statusMessages.forEach(msg => {
+                setTimeout(() => {
+                    msg.style.display = 'none';
+                }, 2500); // 5 seconds
+            });
+
+            // Clear form on page refresh
+            window.addEventListener('beforeunload', function() {
+                document.getElementById('emailForm').reset();
+            });
+
+            // Prevent form persistence after submission
+            if (window.history.replaceState) {
+                window.history.replaceState(null, null, window.location.href);
+            }
+        });
+    </script>
 </body>
 </html>
