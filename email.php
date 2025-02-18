@@ -264,6 +264,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            word-break: break-all;
         }
 
         .file-list div::before {
@@ -642,7 +643,7 @@
                 }
             }
 
-            // File selection handler
+            // Update the file input handler script
             const fileInput = document.getElementById('attachment');
             const fileNameSpan = document.getElementById('file-name');
             const fileListDiv = document.getElementById('file-list');
@@ -650,22 +651,48 @@
             if (fileInput) {
                 fileInput.addEventListener('change', function(e) {
                     const files = e.target.files;
-                    let fileNames = [];
-
-                    for (let i = 0; i < files.length; i++) {
-                        fileNames.push(files[i].name);
-                    }
 
                     if (files.length === 0) {
                         fileNameSpan.textContent = 'Attach Files (Drag & Drop or Click)';
                         fileListDiv.innerHTML = '';
                     } else {
                         fileNameSpan.textContent = `${files.length} file(s) selected`;
-                        fileListDiv.innerHTML = fileNames.map(name => 
-                            `<div>• ${name}</div>`
-                        ).join('');
+                        
+                        // Clear previous list
+                        fileListDiv.innerHTML = '';
+                        
+                        // Add each file with its size
+                        Array.from(files).forEach(file => {
+                            const size = formatFileSize(file.size);
+                            const div = document.createElement('div');
+                            // Use textContent instead of innerHTML for safe text handling
+                            const fileEntry = document.createElement('div');
+                            fileEntry.textContent = `${file.name} (${size})`;
+                            fileEntry.style.display = 'flex';
+                            fileEntry.style.alignItems = 'center';
+                            
+                            // Add bullet point as a separate element
+                            const bullet = document.createElement('span');
+                            bullet.textContent = '•';
+                            bullet.style.marginRight = '8px';
+                            
+                            div.appendChild(bullet);
+                            div.appendChild(fileEntry);
+                            fileListDiv.appendChild(div);
+                        });
                     }
                 });
+            }
+
+            // Format file size function
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
             }
 
             // Auto-fade status messages
