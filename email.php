@@ -587,6 +587,50 @@
         body.light-theme .attachment-item {
             background: rgba(0, 0, 0, 0.05);
         }
+
+        .status-message {
+            margin: 20px auto;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #1a1a1a;
+            max-width: 400px;
+            animation: fadeInDown 0.5s ease forwards;
+            opacity: 1;
+            transition: all 2.5s ease; /* Increased transition duration and smoothed timing */
+        }
+
+        .status-message.success {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #10B981;
+        }
+
+        .status-message.error {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #EF4444;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .status-message.fade-out {
+            opacity: 0;
+            transform: translateY(-10px); /* Slight upward movement while fading */
+        }
     </style>
 </head>
 <body class="dark-theme">
@@ -682,10 +726,33 @@
         }
         ?>
 
-        <?php if ($_SERVER["REQUEST_METHOD"] == "POST"): ?>
+        <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($output)): ?>
             <div class="status-message <?php echo strpos($output, 'successfully') !== false ? 'success' : 'error'; ?>">
+                <?php if (strpos($output, 'successfully') !== false): ?>
+                    <i class="fas fa-check-circle"></i>
+                <?php else: ?>
+                    <i class="fas fa-exclamation-circle"></i>
+                <?php endif; ?>
                 <?php echo $output; ?>
             </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const statusMessage = document.querySelector('.status-message');
+                    if (statusMessage) {
+                        // Wait 8 seconds before starting fade
+                        setTimeout(() => {
+                            // Add fade-out class for smooth transition
+                            statusMessage.classList.add('fade-out');
+                            
+                            // Remove element after fade completes
+                            setTimeout(() => {
+                                statusMessage.remove();
+                            }, 2500); // Match the transition duration
+                        }, 5000); // Show for 8 seconds before starting fade
+                    }
+                });
+            </script>
         <?php endif; ?>
 
         <form method="POST" enctype="multipart/form-data" id="emailForm" autocomplete="on">
@@ -883,7 +950,7 @@
                 statusMessage.addEventListener('animationend', function() {
                     setTimeout(() => {
                         statusMessage.remove();
-                    }, 100);
+                    }, 3000);
                 });
             }
 
