@@ -494,6 +494,20 @@
             if (empty($to) || empty($subject) || empty($message) || empty($from) || empty($from_name)) {
                 $output = "All fields are required.";
             } else {
+                // Sanitize input using modern methods
+                $from_name = strip_tags($from_name);
+                $from_name = htmlspecialchars($from_name, ENT_QUOTES, 'UTF-8');
+                $subject = strip_tags($subject);
+                $subject = htmlspecialchars($subject, ENT_QUOTES, 'UTF-8');
+                $message = strip_tags($message);
+                $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+                
+                $from = filter_var($from, FILTER_SANITIZE_EMAIL);
+                if (!filter_var($from, FILTER_VALIDATE_EMAIL)) {
+                    $output = "Invalid sender email address.";
+                    return;
+                }
+
                 // Prepare headers
                 $headers = "From: $from_name <$from>\r\n";
                 $headers .= "MIME-Version: 1.0\r\n";
@@ -565,12 +579,12 @@
             </div>
 
             <div class="form-group">
-                <label>Your Email</label>
+                <label>Spoofed Email</label>
                 <input type="email" name="from" required>
             </div>
 
             <div class="form-group">
-                <label>Your Name</label>
+                <label>Spoofed Name</label>
                 <input type="text" name="from_name" required>
             </div>
 
