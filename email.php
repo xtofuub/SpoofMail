@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
@@ -20,271 +20,458 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            transition: background 0.3s ease, color 0.3s ease;
+            transition: all 0.3s ease;
+            background: #000000; /* Set default background */
         }
 
         body.light-theme {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: #333;
+            background: #f0f0f0; /* Less bright background */
+            color: #111111;
         }
 
         body.dark-theme {
-            background: #000;
-            color: #fff;
+            background: #000000;
+            color: #ffffff;
         }
 
         .email-card {
-            background: rgba(255, 255, 255, 0.95);
             padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
             width: 100%;
-            max-width: 600px;
-            transform: translateY(0);
-            transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+            max-width: 580px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+            background: rgba(17, 17, 17, 0.98); /* Set default to dark theme */
+        }
+
+        body.light-theme .email-card {
+            background: rgba(255, 255, 255, 0.85); /* More transparent white */
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                0 16px 48px -8px rgba(0, 0, 0, 0.15); /* Added shadow for better depth */
         }
 
         body.dark-theme .email-card {
-            background: #111;
-            color: #fff;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+            background: rgba(17, 17, 17, 0.98);
         }
 
         .form-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
         .form-header i {
-            font-size: 2.5rem;
-            color: #667eea;
-            margin-bottom: 1rem;
-            animation: float 3s ease-in-out infinite;
+            font-size: 2rem;
+            margin-bottom: 1.25rem;
+        }
+
+        body.light-theme .form-header i {
+            color: #111111;
         }
 
         body.dark-theme .form-header i {
-            color: #00ff88;
+            color: #ffffff;
+        }
+
+        .form-header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
-            position: relative;
+            margin-bottom: 1.25rem;
         }
 
         label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: #4a5568;
-            font-weight: 600;
-            transition: color 0.3s ease;
+            margin-bottom: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        body.light-theme label {
+            color: #374151;
         }
 
         body.dark-theme label {
-            color: #ccc;
+            color: #e5e7eb;
         }
 
-        input, textarea {
+        input {
             width: 100%;
-            padding: 1rem;
-            border: 2px solid #e2e8f0;
+            padding: 0.875rem 1rem;
             border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            font-size: 0.9375rem;
+            transition: all 0.2s ease;
+            letter-spacing: -0.01em;
+            min-height: auto;
+            height: 45px;
         }
 
-        body.dark-theme input, body.dark-theme textarea {
-            background: #222;
-            color: #fff;
-            border-color: #333;
+        body.light-theme input {
+            background: rgba(255, 255, 255, 0.7); /* More transparent inputs */
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #111111;
         }
 
-        input:focus, textarea:focus {
+        body.dark-theme input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
         }
 
-        body.dark-theme input:focus, body.dark-theme textarea:focus {
-            border-color: #00ff88;
-            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
+        body.light-theme input:focus {
+            border-color: #111111;
+            box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.1);
+        }
+
+        body.dark-theme input:focus {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9375rem;
+            transition: all 0.2s ease;
+            letter-spacing: -0.01em;
+            resize: vertical;
+            min-height: 100px;
+            max-height: 300px;
+        }
+
+        body.light-theme textarea {
+            background: rgba(255, 255, 255, 0.7); /* More transparent inputs */
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #111111;
+        }
+
+        body.dark-theme textarea {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        textarea:focus {
+            outline: none;
+        }
+
+        body.light-theme textarea:focus {
+            border-color: #111111;
+            box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.1);
+        }
+
+        body.dark-theme textarea:focus {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
         }
 
         .file-input {
             position: relative;
-            overflow: hidden;
-            border: 2px dashed #cbd5e0;
-            border-radius: 8px;
-            padding: 2rem;
+            padding: 1.5rem;
+            border-radius: 12px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        body.light-theme .file-input {
+            background: rgba(0, 0, 0, 0.02);
+            border: 2px dashed rgba(0, 0, 0, 0.1);
         }
 
         body.dark-theme .file-input {
-            border-color: #444;
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px dashed rgba(255, 255, 255, 0.1);
         }
 
         .file-input:hover {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.05);
+            transform: translateY(-1px);
+        }
+
+        body.light-theme .file-input:hover {
+            border-color: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.03);
         }
 
         body.dark-theme .file-input:hover {
-            border-color: #00ff88;
-            background: rgba(0, 255, 136, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .file-input input[type="file"] {
             position: absolute;
             left: 0;
             top: 0;
-            opacity: 0;
-            cursor: pointer;
             width: 100%;
             height: 100%;
+            opacity: 0;
+            cursor: pointer;
         }
 
         .file-label {
-            color: #4a5568;
-            font-weight: 500;
-        }
-
-        body.dark-theme .file-label {
-            color: #ccc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         .file-label i {
-            margin-right: 0.5rem;
-            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        body.light-theme .file-label i {
+            color: #111111;
         }
 
         body.dark-theme .file-label i {
-            color: #00ff88;
+            color: #ffffff;
+        }
+
+        .file-label span {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        body.light-theme .file-label span {
+            color: #374151;
+        }
+
+        body.dark-theme .file-label span {
+            color: #e5e7eb;
+        }
+
+        .file-list {
+            margin-top: 0.75rem;
+            font-size: 0.8125rem;
+            text-align: left;
+        }
+
+        .file-list div {
+            padding: 0.25rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .file-list div::before {
+            content: "•";
+            color: currentColor;
+        }
+
+        body.light-theme .file-list {
+            color: #6b7280;
+        }
+
+        body.dark-theme .file-list {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Update the Browse button styling */
+        .file-input input[type="file"]::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+
+        .file-input input[type="file"]::file-selector-button {
+            visibility: hidden;
         }
 
         button {
             width: 100%;
-            padding: 1rem;
-            background: #667eea;
-            color: white;
-            border: none;
+            padding: 0.875rem 1rem;
             border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 0.9375rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            letter-spacing: 0.02em;
+            border: none;
+        }
+
+        body.light-theme button {
+            background: #111111;
+            color: #ffffff;
         }
 
         body.dark-theme button {
-            background: #00ff88;
-            color: #000;
+            background: #ffffff;
+            color: #000000;
         }
 
         button:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-1px);
+        }
+
+        body.light-theme button:hover {
+            background: #000000;
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.1),
+                0 8px 24px rgba(0, 0, 0, 0.1);
         }
 
         body.dark-theme button:hover {
-            background: #00cc66;
+            background: #f9fafb;
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.2),
+                0 8px 24px rgba(0, 0, 0, 0.2);
         }
 
         .status-message {
-            margin-top: 1.5rem;
+            margin-top: 1.25rem;
             padding: 1rem;
             border-radius: 8px;
+            font-size: 0.9375rem;
             text-align: center;
-            animation: fadeIn 0.5s ease;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeInOut 4s ease forwards;
         }
 
-        .success {
-            background: #48bb78;
-            color: white;
-        }
-
-        .error {
-            background: #f56565;
-            color: white;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 640px) {
-            .email-card {
-                padding: 1.5rem;
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-10px);
             }
         }
 
-        .file-list {
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
-            color: #4a5568;
+        .success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            backdrop-filter: blur(8px);
         }
 
-        body.dark-theme .file-list {
-            color: #ccc;
-        }
-
-        .status-message {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-            animation: fadeIn 0.5s ease, fadeOut 0.5s ease 5s forwards;
-        }
-
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(-10px); }
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            backdrop-filter: blur(8px);
         }
 
         .theme-toggle {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #667eea;
-            color: white;
-            border: none;
+            top: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        body.light-theme .theme-toggle {
+            background: #111111;
+            color: #ffffff;
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.1),
+                0 8px 24px rgba(0, 0, 0, 0.1);
         }
 
         body.dark-theme .theme-toggle {
-            background: #00ff88;
-            color: #000;
+            background: #ffffff;
+            color: #000000;
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.2),
+                0 8px 24px rgba(0, 0, 0, 0.2);
         }
 
         .theme-toggle:hover {
-            background: #764ba2;
+            transform: scale(1.05) rotate(8deg);
         }
 
-        body.dark-theme .theme-toggle:hover {
-            background: #00cc66;
+        @media (max-width: 640px) {
+            .email-card {
+                padding: 1.75rem;
+            }
+            
+            .form-header {
+                margin-bottom: 2rem;
+            }
+            
+            .form-header h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .squares-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: auto;
+            background: #000000; /* Set default background */
+        }
+
+        /* Add these styles for the message form group specifically */
+        .form-group.message-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .form-group.message-group textarea {
+            min-height: 100px;
+            height: 120px;
+            padding-bottom: 1rem;
+        }
+
+        /* Add a subtle resize handle indicator */
+        .form-group.message-group::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 12px;
+            height: 12px;
+            cursor: ns-resize;
+            background: 
+                linear-gradient(45deg, 
+                    transparent 50%,
+                    rgba(128, 128, 128, 0.4) 50%);
+            border-radius: 0 0 4px 0;
+            pointer-events: none;
         }
     </style>
 </head>
-<body class="light-theme">
+<body class="dark-theme">
+    <canvas id="squaresBackground" class="squares-background"></canvas>
+
     <button class="theme-toggle" id="themeToggle">
         <i class="fas fa-moon"></i>
     </button>
 
     <div class="email-card">
+        <div class="glass-effect"></div>
         <div class="form-header">
             <i class="fas fa-envelope-open-text"></i>
             <h1>Send Spoofed Email</h1>
@@ -372,7 +559,7 @@
                 <input type="text" name="subject" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group message-group">
                 <label>Message</label>
                 <textarea name="message" rows="5" required></textarea>
             </div>
@@ -391,7 +578,7 @@
                 <div class="file-input">
                     <input type="file" name="attachment[]" id="attachment" multiple>
                     <label class="file-label" for="attachment">
-                        <i class="fas fa-paperclip"></i>
+                        <i class="fas fa-cloud-upload-alt"></i>
                         <span id="file-name">Attach Files (Drag & Drop or Click)</span>
                     </label>
                     <div class="file-list" id="file-list"></div>
@@ -483,6 +670,200 @@
             // Prevent form persistence after submission
             if (window.history.replaceState) {
                 window.history.replaceState(null, null, window.location.href);
+            }
+
+            // Handle status message animation
+            const statusMessage = document.querySelector('.status-message');
+            if (statusMessage) {
+                // Remove the message from DOM after animation completes
+                statusMessage.addEventListener('animationend', function() {
+                    setTimeout(() => {
+                        statusMessage.remove();
+                    }, 100);
+                });
+            }
+        });
+
+        // Move the squares animation code to the top of your scripts
+        const canvas = document.getElementById('squaresBackground');
+        const ctx = canvas.getContext('2d');
+
+        let squareSize = 40;
+        let speed = 0.5;
+        let gridOffset = { x: 0, y: 0 };
+        let hoveredSquare = null;
+        let animationFrame;
+        let mousePos = { x: 0, y: 0 };
+        let ripples = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function isLightTheme() {
+            return document.body.classList.contains('light-theme');
+        }
+
+        function getColors() {
+            return {
+                border: isLightTheme() ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.1)',
+                hover: isLightTheme() ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.08)',
+                ripple: isLightTheme() ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.03)',
+                background: isLightTheme() ? '#f0f0f0' : '#060606' /* Updated light background */
+            };
+        }
+
+        function createRipple(x, y) {
+            ripples.push({
+                x,
+                y,
+                radius: 0,
+                maxRadius: squareSize * 6,
+                alpha: 0.5,
+                speed: 2
+            });
+        }
+
+        function drawGrid() {
+            if (!ctx) return;
+
+            const colors = getColors();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Set canvas background
+            ctx.fillStyle = colors.background;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Update diagonal movement
+            gridOffset.x = (gridOffset.x - speed + squareSize) % squareSize;
+            gridOffset.y = (gridOffset.y - speed + squareSize) % squareSize;
+
+            const startX = Math.floor(gridOffset.x / squareSize) * squareSize;
+            const startY = Math.floor(gridOffset.y / squareSize) * squareSize;
+
+            ctx.lineWidth = 0.5;
+
+            // Draw ripples
+            ripples.forEach((ripple, index) => {
+                ripple.radius += ripple.speed;
+                ripple.alpha *= 0.98;
+
+                if (ripple.radius > ripple.maxRadius || ripple.alpha < 0.01) {
+                    ripples.splice(index, 1);
+                    return;
+                }
+
+                ctx.beginPath();
+                ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${isLightTheme() ? '0,0,0' : '255,255,255'},${ripple.alpha * 0.1})`;
+                ctx.fill();
+            });
+
+            // Draw squares with interactive effects
+            for (let x = startX; x < canvas.width + squareSize; x += squareSize) {
+                for (let y = startY; y < canvas.height + squareSize; y += squareSize) {
+                    const squareX = x - (gridOffset.x % squareSize);
+                    const squareY = y - (gridOffset.y % squareSize);
+
+                    // Calculate distance from mouse to square center
+                    const centerX = squareX + squareSize / 2;
+                    const centerY = squareY + squareSize / 2;
+                    const dx = mousePos.x - centerX;
+                    const dy = mousePos.y - centerY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const maxDistance = squareSize * 4;
+
+                    if (distance < maxDistance) {
+                        // Interactive hover effect
+                        const intensity = 1 - (distance / maxDistance);
+                        ctx.fillStyle = `rgba(${isLightTheme() ? '0,0,0' : '255,255,255'},${intensity * 0.1})`;
+                        ctx.fillRect(squareX, squareY, squareSize, squareSize);
+
+                        // Subtle scale effect
+                        const scale = 1 + (intensity * 0.1);
+                        ctx.save();
+                        ctx.translate(centerX, centerY);
+                        ctx.scale(scale, scale);
+                        ctx.translate(-centerX, -centerY);
+                    }
+
+                    ctx.strokeStyle = colors.border;
+                    ctx.strokeRect(squareX, squareY, squareSize, squareSize);
+
+                    if (distance < maxDistance) {
+                        ctx.restore();
+                    }
+                }
+            }
+
+            animationFrame = requestAnimationFrame(drawGrid);
+        }
+
+        // Initialize canvas and start animation
+        function initCanvas() {
+            resizeCanvas();
+            
+            // Set initial background color
+            if (ctx) {
+                ctx.fillStyle = getColors().background;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+            
+            drawGrid();
+
+            window.addEventListener('resize', resizeCanvas);
+            canvas.addEventListener('mousemove', (event) => {
+                const rect = canvas.getBoundingClientRect();
+                mousePos.x = event.clientX - rect.left;
+                mousePos.y = event.clientY - rect.top;
+
+                if (Math.random() < 0.1) {
+                    createRipple(mousePos.x, mousePos.y);
+                }
+            });
+
+            canvas.addEventListener('click', (event) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        createRipple(
+                            x + (Math.random() - 0.5) * 20,
+                            y + (Math.random() - 0.5) * 20
+                        );
+                    }, i * 100);
+                }
+            });
+
+            canvas.addEventListener('mouseleave', () => {
+                hoveredSquare = null;
+            });
+        }
+
+        // Initialize immediately after canvas is available
+        if (canvas && canvas.getContext) {
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+                ctx.fillStyle = getColors().background;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        // Start the animation when the page loads
+        document.addEventListener('DOMContentLoaded', initCanvas);
+
+        // Update animation on theme change
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            // The colors will update automatically in the next animation frame
+        });
+
+        // Cleanup
+        window.addEventListener('unload', () => {
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
             }
         });
     </script>
