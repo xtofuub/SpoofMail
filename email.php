@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
-                * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -19,8 +19,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(45deg, #667eea, #764ba2);
             padding: 20px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.light-theme {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: #333;
+        }
+
+        body.dark-theme {
+            background: #000;
+            color: #fff;
         }
 
         .email-card {
@@ -31,11 +41,13 @@
             width: 100%;
             max-width: 600px;
             transform: translateY(0);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
         }
 
-        .email-card:hover {
-            transform: translateY(-5px);
+        body.dark-theme .email-card {
+            background: #111;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
         }
 
         .form-header {
@@ -48,6 +60,10 @@
             color: #667eea;
             margin-bottom: 1rem;
             animation: float 3s ease-in-out infinite;
+        }
+
+        body.dark-theme .form-header i {
+            color: #00ff88;
         }
 
         .form-group {
@@ -63,6 +79,10 @@
             transition: color 0.3s ease;
         }
 
+        body.dark-theme label {
+            color: #ccc;
+        }
+
         input, textarea {
             width: 100%;
             padding: 1rem;
@@ -72,14 +92,21 @@
             transition: all 0.3s ease;
         }
 
+        body.dark-theme input, body.dark-theme textarea {
+            background: #222;
+            color: #fff;
+            border-color: #333;
+        }
+
         input:focus, textarea:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
         }
 
-        input:hover, textarea:hover {
-            border-color: #a3bffa;
+        body.dark-theme input:focus, body.dark-theme textarea:focus {
+            border-color: #00ff88;
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
         }
 
         .file-input {
@@ -92,9 +119,18 @@
             transition: all 0.3s ease;
         }
 
+        body.dark-theme .file-input {
+            border-color: #444;
+        }
+
         .file-input:hover {
             border-color: #667eea;
             background: rgba(102, 126, 234, 0.05);
+        }
+
+        body.dark-theme .file-input:hover {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.05);
         }
 
         .file-input input[type="file"] {
@@ -112,9 +148,17 @@
             font-weight: 500;
         }
 
+        body.dark-theme .file-label {
+            color: #ccc;
+        }
+
         .file-label i {
             margin-right: 0.5rem;
             color: #667eea;
+        }
+
+        body.dark-theme .file-label i {
+            color: #00ff88;
         }
 
         button {
@@ -132,14 +176,19 @@
             letter-spacing: 1px;
         }
 
+        body.dark-theme button {
+            background: #00ff88;
+            color: #000;
+        }
+
         button:hover {
             background: #764ba2;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        button:active {
-            transform: translateY(0);
+        body.dark-theme button:hover {
+            background: #00cc66;
         }
 
         .status-message {
@@ -175,14 +224,18 @@
                 padding: 1.5rem;
             }
         }
-		
-		.file-list {
+
+        .file-list {
             margin-top: 0.5rem;
             font-size: 0.9rem;
             color: #4a5568;
         }
-		
-		.status-message {
+
+        body.dark-theme .file-list {
+            color: #ccc;
+        }
+
+        .status-message {
             margin-top: 1.5rem;
             padding: 1rem;
             border-radius: 8px;
@@ -194,9 +247,43 @@
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(-10px); }
         }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-theme .theme-toggle {
+            background: #00ff88;
+            color: #000;
+        }
+
+        .theme-toggle:hover {
+            background: #764ba2;
+        }
+
+        body.dark-theme .theme-toggle:hover {
+            background: #00cc66;
+        }
     </style>
 </head>
-<body>
+<body class="light-theme">
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <div class="email-card">
         <div class="form-header">
             <i class="fas fa-envelope-open-text"></i>
@@ -274,7 +361,7 @@
             </div>
         <?php endif; ?>
 
-        <form method="POST" enctype="multipart/form-data" id="emailForm" autocomplete="off">
+        <form method="POST" enctype="multipart/form-data" id="emailForm" autocomplete="on">
             <div class="form-group">
                 <label>Recipient Email</label>
                 <input type="email" name="to" required>
@@ -320,6 +407,40 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+
+            // Check for saved theme in localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                body.classList.add(savedTheme);
+                updateToggleIcon(savedTheme);
+            }
+
+            themeToggle.addEventListener('click', function() {
+                if (body.classList.contains('light-theme')) {
+                    body.classList.remove('light-theme');
+                    body.classList.add('dark-theme');
+                    localStorage.setItem('theme', 'dark-theme');
+                } else {
+                    body.classList.remove('dark-theme');
+                    body.classList.add('light-theme');
+                    localStorage.setItem('theme', 'light-theme');
+                }
+                updateToggleIcon(body.classList.contains('dark-theme') ? 'dark-theme' : 'light-theme');
+            });
+
+            function updateToggleIcon(theme) {
+                const icon = themeToggle.querySelector('i');
+                if (theme === 'dark-theme') {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            }
+
             // File selection handler
             const fileInput = document.getElementById('attachment');
             const fileNameSpan = document.getElementById('file-name');
@@ -351,7 +472,7 @@
             statusMessages.forEach(msg => {
                 setTimeout(() => {
                     msg.style.display = 'none';
-                }, 2500); // 
+                }, 5000); // 
             });
 
             // Clear form on page refresh
