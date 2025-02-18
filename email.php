@@ -462,6 +462,160 @@
             border-radius: 0 0 4px 0;
             pointer-events: none;
         }
+
+        /* Add these styles */
+        .preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .preview-content {
+            position: relative;
+            background: var(--bg-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            margin: 2rem auto;
+            animation: modalSlide 0.3s ease-out;
+        }
+
+        @keyframes modalSlide {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-header h2 {
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .close-preview {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .preview-body {
+            padding: 1.5rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .preview-field {
+            margin-bottom: 1rem;
+        }
+
+        .preview-field label {
+            display: block;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-bottom: 0.25rem;
+        }
+
+        .preview-field span {
+            color: var(--text-color);
+        }
+
+        .preview-message {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            color: var(--text-color);
+        }
+
+        .preview-attachments {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .attachment-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .preview-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .cancel-btn, .send-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cancel-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+        }
+
+        .send-btn {
+            background: #007bff;
+            border: none;
+            color: white;
+        }
+
+        .cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .send-btn:hover {
+            background: #0056b3;
+        }
+
+        /* Light theme overrides */
+        body.light-theme .preview-content {
+            --bg-color: #fff;
+            --text-color: #000;
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .preview-header,
+        body.light-theme .preview-footer {
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .preview-message,
+        body.light-theme .attachment-item {
+            background: rgba(0, 0, 0, 0.05);
+        }
     </style>
 </head>
 <body class="dark-theme">
@@ -607,6 +761,45 @@
         </form>
     </div>
 
+    <div id="previewModal" class="preview-modal">
+        <div class="preview-content">
+            <div class="preview-header">
+                <h2>Email Preview</h2>
+                <button class="close-preview">&times;</button>
+            </div>
+            <div class="preview-body">
+                <div class="preview-field">
+                    <label>From:</label>
+                    <span id="previewFrom"></span>
+                </div>
+                <div class="preview-field">
+                    <label>From Name:</label>
+                    <span id="previewFromName"></span>
+                </div>
+                <div class="preview-field">
+                    <label>To:</label>
+                    <span id="previewTo"></span>
+                </div>
+                <div class="preview-field">
+                    <label>Subject:</label>
+                    <span id="previewSubject"></span>
+                </div>
+                <div class="preview-field">
+                    <label>Message:</label>
+                    <div id="previewMessage" class="preview-message"></div>
+                </div>
+                <div class="preview-field">
+                    <label>Attachments:</label>
+                    <div id="previewAttachments" class="preview-attachments"></div>
+                </div>
+            </div>
+            <div class="preview-footer">
+                <button id="cancelSend" class="cancel-btn">Cancel</button>
+                <button id="confirmSend" class="send-btn">Send Email</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const themeToggle = document.getElementById('themeToggle');
@@ -723,6 +916,72 @@
                     }, 100);
                 });
             }
+
+            const form = document.getElementById('emailForm');
+            const modal = document.getElementById('previewModal');
+            const closeBtn = document.querySelector('.close-preview');
+            const cancelBtn = document.getElementById('cancelSend');
+            const confirmBtn = document.getElementById('confirmSend');
+            
+            // Modify form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                showPreview();
+            });
+            
+            function showPreview() {
+                // Update preview content
+                document.getElementById('previewFrom').textContent = form.from.value;
+                document.getElementById('previewFromName').textContent = form.from_name.value;
+                document.getElementById('previewTo').textContent = form.to.value;
+                document.getElementById('previewSubject').textContent = form.subject.value;
+                document.getElementById('previewMessage').textContent = form.message.value;
+                
+                // Handle attachments
+                const attachmentsDiv = document.getElementById('previewAttachments');
+                attachmentsDiv.innerHTML = '';
+                const files = form.attachment.files;
+                
+                if (files.length > 0) {
+                    Array.from(files).forEach(file => {
+                        const attachmentEl = document.createElement('div');
+                        attachmentEl.className = 'attachment-item';
+                        attachmentEl.innerHTML = `
+                            <i class="fas fa-paperclip"></i>
+                            <span>${file.name} (${formatFileSize(file.size)})</span>
+                        `;
+                        attachmentsDiv.appendChild(attachmentEl);
+                    });
+                } else {
+                    attachmentsDiv.innerHTML = '<span>No attachments</span>';
+                }
+                
+                // Show modal
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // Close modal handlers
+            function closeModal() {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+            
+            closeBtn.addEventListener('click', closeModal);
+            cancelBtn.addEventListener('click', closeModal);
+            
+            // Handle actual form submission
+            confirmBtn.addEventListener('click', function() {
+                closeModal();
+                form.submit();
+            });
+            
+            // Close modal if clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
         });
 
         // Move the squares animation code to the top of your scripts
@@ -909,4 +1168,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
