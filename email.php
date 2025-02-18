@@ -890,7 +890,6 @@
             const form = document.getElementById('emailForm');
             const modal = document.getElementById('previewModal');
             const closeBtn = document.querySelector('.close-preview');
-            const cancelBtn = document.getElementById('cancelSend');
             const confirmBtn = document.getElementById('confirmSend');
             
             // Modify form submission
@@ -938,7 +937,6 @@
             }
             
             closeBtn.addEventListener('click', closeModal);
-            cancelBtn.addEventListener('click', closeModal);
             
             // Handle actual form submission
             confirmBtn.addEventListener('click', function() {
