@@ -329,51 +329,6 @@
                 0 8px 24px rgba(0, 0, 0, 0.2);
         }
 
-        .status-message {
-            margin-top: 1.25rem;
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 0.9375rem;
-            text-align: center;
-            font-weight: 500;
-            opacity: 0;
-            transform: translateY(-10px);
-            animation: fadeInOut 4s ease forwards;
-        }
-
-        @keyframes fadeInOut {
-            0% {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            10% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            90% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-        }
-
-        .success {
-            background: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            backdrop-filter: blur(8px);
-        }
-
-        .error {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            backdrop-filter: blur(8px);
-        }
-
         .theme-toggle {
             position: fixed;
             top: 24px;
@@ -587,35 +542,33 @@
             padding: 1rem 1.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-        }
-
-        .cancel-btn, .send-btn {
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .cancel-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-color);
+            justify-content: center;
         }
 
         .send-btn {
-            background: #007bff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all 0.3s ease;
             border: none;
-            color: white;
-        }
-
-        .cancel-btn:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: white;
+            color: black;
         }
 
         .send-btn:hover {
-            background: #0056b3;
+            background: #f0f0f0;
+        }
+
+        /* Dark theme override */
+        body.dark-theme .send-btn {
+            background: #333;
+            color: white;
+        }
+
+        body.dark-theme .send-btn:hover {
+            background: #444;
         }
 
         /* Light theme overrides */
@@ -812,7 +765,6 @@
                 </div>
             </div>
             <div class="preview-footer">
-                <button id="cancelSend" class="cancel-btn">Cancel</button>
                 <button id="confirmSend" class="send-btn">Send Email</button>
             </div>
         </div>
