@@ -6,7 +6,7 @@ A sleek and responsive email form built with PHP, HTML, and CSS. This project de
 ## **UPDATE WITH DARK MODE** 
 ![{B2FFD1E4-70FE-4C6C-98D1-EE8B977A4DBC}](https://github.com/user-attachments/assets/f3565b73-23d2-4a63-96fc-ac2b03f117eb)
 
-## 🔥 **Features** 🔥
+## 🔥 **Features** 🔥 test
 
 - **Modern UI Design**: Clean and elegant design with smooth animations. 🎨✨
 - **Responsive Layout**: Works seamlessly on all screen sizes. 📱💻
