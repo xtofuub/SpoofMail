@@ -504,20 +504,38 @@
             align-items: center;
             padding: 1rem 1.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
         .preview-header h2 {
             margin: 0;
             color: var(--text-color);
+            width: 100%;
+            text-align: center;
         }
 
         .close-preview {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1rem;
             color: var(--text-color);
             cursor: pointer;
-            padding: 0.5rem;
+            padding: 0.25rem;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .close-preview:hover {
+            opacity: 1;
         }
 
         .preview-body {
