@@ -1,7 +1,7 @@
 # 🌟 **Modern Email Spoofer** 🌟
 
 A sleek and responsive email form built with PHP, HTML, and CSS. This project demonstrates how to create a visually appealing and functional email submission form with modern animations and styling. 🚀
-## **UPDATE WITH NEW COLORS** 
+## **UPDATE WITH NEW COLORS 2.0** 
 ![{D46CAD9F-CF85-457D-8973-3E74314CFED4}](https://github.com/user-attachments/assets/b5df882f-0f34-4adc-8bde-dc011b9b5704)
 
 ![{E8FD7CE7-1173-4BCE-816D-51BC56019E41}](https://github.com/user-attachments/assets/adb368d4-187a-4b7c-a007-a03c37901290)
