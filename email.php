@@ -631,6 +631,257 @@
             opacity: 0;
             transform: translateY(-10px); /* Slight upward movement while fading */
         }
+
+        /* Send Options Styling */
+        .send-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .send-type-select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9375rem;
+            transition: all 0.2s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        body.light-theme .send-type-select {
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #111111;
+        }
+
+        body.dark-theme .send-type-select {
+            background-color: rgba(17, 17, 17, 0.98); /* Match email-card background */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        body.dark-theme .send-type-select:hover {
+            background-color: rgba(30, 30, 30, 0.98);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Style the dropdown options */
+        body.dark-theme .send-type-select option {
+            background-color: rgba(17, 17, 17, 0.98);
+            color: #ffffff;
+            padding: 8px;
+        }
+
+        body.dark-theme .send-type-select option:hover {
+            background-color: rgba(30, 30, 30, 0.98);
+        }
+
+        body.dark-theme .send-type-select:focus {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+
+        /* Preset Options Styling */
+        .preset-options {
+            display: flex;
+            gap: 8px;
+        }
+
+        .preset-options button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        body.dark-theme .preset-options button {
+            background: rgba(17, 17, 17, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        /* Add styles for selected state */
+        body.dark-theme .preset-options button.selected {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+
+        body.dark-theme .preset-options button:hover {
+            background: rgba(30, 30, 30, 0.98);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Light theme styles */
+        body.light-theme .preset-options button {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #111111;
+        }
+
+        body.light-theme .preset-options button.selected {
+            background: rgba(0, 0, 0, 0.1);
+            border-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .preset-options button:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Custom Amount Input Styling */
+        #customAmount input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9375rem;
+            transition: all 0.2s ease;
+        }
+
+        body.light-theme #customAmount input {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #111111;
+        }
+
+        body.dark-theme #customAmount input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        /* Progress Bar and Stop Button Styling */
+        .send-progress {
+            margin: 1rem 0 1.5rem 0; /* Add margin bottom to prevent collision */
+            background: rgba(17, 17, 17, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #10B981; /* Nice green color */
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Updated Stop Button Styling */
+        .stop-button {
+            width: 28px;
+            height: 28px;
+            background: rgba(17, 17, 17, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            padding: 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .stop-button i {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.2s ease;
+        }
+
+        .stop-button:hover {
+            background: rgba(30, 30, 30, 0.98);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .stop-button:hover i {
+            color: rgba(255, 255, 255, 1);
+        }
+
+        .stop-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Progress Text Animation */
+        .sending-animation {
+            animation: sendingPulse 2s infinite;
+            color: #10B981; /* Match the progress bar color */
+        }
+
+        @keyframes sendingPulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Button Group for Sending and Preview */
+        .button-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Updated Preview Button Styling */
+        .preview-button {
+            height: 45px;  /* Match the height of send button */
+            width: 45px;   /* Make it square */
+            border: none;
+            border-radius: 8px;  /* Match send button's border radius */
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;  /* Match the theme */
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        body.light-theme .preview-button {
+            background: #111111;
+            color: #ffffff;
+        }
+
+        body.dark-theme .preview-button {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .preview-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview-button i {
+            font-size: 18px;  /* Slightly larger icon */
+        }
     </style>
 </head>
 <body class="dark-theme">
@@ -792,10 +1043,50 @@
                 </div>
             </div>
 
-            <button type="submit">
-                Send Message
-                <i class="fas fa-paper-plane"></i>
-            </button>
+            <div class="form-group">
+                <label for="sendType">Send Options</label>
+                <div class="send-options">
+                    <select name="send_type" id="sendType" class="send-type-select">
+                        <option value="once">Send Once</option>
+                        <option value="preset">Preset Amount</option>
+                        <option value="custom">Custom Amount</option>
+                        <option value="unlimited">Unlimited</option>
+                    </select>
+                    
+                    <div id="presetOptions" class="preset-options" style="display: none;">
+                        <button type="button" data-amount="5">5x</button>
+                        <button type="button" data-amount="10">10x</button>
+                        <button type="button" data-amount="25">25x</button>
+                        <button type="button" data-amount="50">50x</button>
+                    </div>
+
+                    <div id="customAmount" style="display: none;">
+                        <input type="number" name="send_amount" min="1" max="1000" placeholder="Enter number of times to send">
+                    </div>
+                </div>
+            </div>
+
+            <div id="sendProgress" class="send-progress" style="display: none;">
+                <div class="progress-info">
+                    <span id="progressText">Sending emails: 0/0</span>
+                    <button id="stopSending" class="stop-button" style="display: none;">
+                        <i class="fas fa-stop"></i>
+                    </button>
+                </div>
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="send-button">
+                    Send Message
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <button type="button" class="preview-button">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
         </form>
     </div>
 
@@ -959,12 +1250,6 @@
             const closeBtn = document.querySelector('.close-preview');
             const confirmBtn = document.getElementById('confirmSend');
             
-            // Modify form submission
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                showPreview();
-            });
-            
             function showPreview() {
                 // Update preview content
                 document.getElementById('previewFrom').textContent = form.from.value;
@@ -1017,6 +1302,147 @@
                     closeModal();
                 }
             });
+
+            const sendType = document.getElementById('sendType');
+            const presetOptions = document.getElementById('presetOptions');
+            const customAmount = document.getElementById('customAmount');
+            let selectedAmount = 1;
+            let isUnlimited = false;
+
+            // Handle send type changes
+            sendType.addEventListener('change', function() {
+                presetOptions.style.display = 'none';
+                customAmount.style.display = 'none';
+                isUnlimited = false;
+
+                switch(this.value) {
+                    case 'preset':
+                        presetOptions.style.display = 'flex';
+                        break;
+                    case 'custom':
+                        customAmount.style.display = 'block';
+                        break;
+                    case 'unlimited':
+                        isUnlimited = true;
+                        break;
+                    default:
+                        selectedAmount = 1;
+                }
+            });
+
+            // Handle preset button clicks
+            presetOptions.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove selected class from all buttons
+                    presetOptions.querySelectorAll('button').forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                    // Add selected class to clicked button
+                    this.classList.add('selected');
+                    selectedAmount = parseInt(this.dataset.amount);
+                });
+            });
+
+            const sendProgress = document.getElementById('sendProgress');
+            const progressText = document.getElementById('progressText');
+            const progressFill = document.getElementById('progressFill');
+            const stopButton = document.getElementById('stopSending');
+            let shouldStop = false;
+
+            // Handle stop button
+            stopButton.addEventListener('click', function() {
+                shouldStop = true;
+                stopButton.disabled = true;
+            });
+
+            // Update progress UI
+            function updateProgress(current, total) {
+                if (total === -1) {
+                    // Unlimited mode
+                    progressText.textContent = `Sending emails: ${current} sent`;
+                    progressText.classList.add('sending-animation');
+                    progressFill.style.width = '100%';
+                } else {
+                    // Fixed amount mode
+                    const percentage = (current / total) * 100;
+                    progressText.textContent = `Sending emails: ${current}/${total}`;
+                    progressFill.style.width = `${percentage}%`;
+                }
+            }
+
+            // Reset progress UI
+            function resetProgress() {
+                sendProgress.style.display = 'none';
+                progressText.classList.remove('sending-animation');
+                progressFill.style.width = '0%';
+                stopButton.style.display = 'none';
+                stopButton.disabled = false;
+                shouldStop = false;
+            }
+
+            // Handle form submission
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const sendCount = isUnlimited ? -1 : 
+                                 sendType.value === 'custom' ? parseInt(customAmount.querySelector('input').value) : 
+                                 selectedAmount;
+
+                if (sendCount === 0 || isNaN(sendCount)) {
+                    alert('Please select a valid number of times to send');
+                    return;
+                }
+
+                // Show progress UI
+                sendProgress.style.display = 'block';
+                if (isUnlimited) {
+                    stopButton.style.display = 'block';
+                }
+
+                // Function to send email
+                async function sendEmail() {
+                    const formData = new FormData(form);
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        return response.ok;
+                    } catch (error) {
+                        console.error('Error sending email:', error);
+                        return false;
+                    }
+                }
+
+                let sentCount = 0;
+                
+                // Send emails based on count
+                if (isUnlimited) {
+                    while (!shouldStop) {
+                        if (await sendEmail()) {
+                            sentCount++;
+                            updateProgress(sentCount, -1);
+                        }
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                    }
+                } else {
+                    for (let i = 0; i < sendCount; i++) {
+                        if (await sendEmail()) {
+                            sentCount++;
+                            updateProgress(sentCount, sendCount);
+                        }
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                    }
+                }
+
+                // Reset UI after completion
+                resetProgress();
+            });
+
+            const previewButton = document.querySelector('.preview-button');
+            if (previewButton) {
+                previewButton.addEventListener('click', showPreview);
+            }
         });
 
         // Move the squares animation code to the top of your scripts
