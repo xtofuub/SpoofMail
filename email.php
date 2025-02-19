@@ -758,13 +758,19 @@
             color: #ffffff;
         }
 
-        /* Progress Bar and Stop Button Styling */
+        /* Progress Bar and Animation Styling */
         .send-progress {
-            margin: 1rem 0 1.5rem 0; /* Add margin bottom to prevent collision */
+            margin: 1rem 0 1.5rem 0;
             background: rgba(17, 17, 17, 0.98);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 1rem;
+            opacity: 1;
+            transition: opacity 0.8s ease-out;
+        }
+
+        .send-progress.fade-out {
+            opacity: 0;
         }
 
         .progress-info {
@@ -785,9 +791,19 @@
 
         .progress-fill {
             height: 100%;
-            background: #10B981; /* Nice green color */
+            background: #10B981;
             width: 0%;
-            transition: width 0.3s ease;
+            transition: width 1.2s ease-in-out; /* Slower progress animation */
+        }
+
+        .sending-animation {
+            animation: sendingPulse 3s infinite; /* Slower pulse animation */
+        }
+
+        @keyframes sendingPulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
         }
 
         /* Updated Stop Button Styling */
@@ -828,18 +844,6 @@
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
-        }
-
-        /* Progress Text Animation */
-        .sending-animation {
-            animation: sendingPulse 2s infinite;
-            color: #10B981; /* Match the progress bar color */
-        }
-
-        @keyframes sendingPulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
         }
 
         /* Button Group for Sending and Preview */
@@ -1370,14 +1374,37 @@
                 }
             }
 
-            // Reset progress UI
+            // Reset progress UI with smooth fade
             function resetProgress() {
-                sendProgress.style.display = 'none';
+                sendProgress.classList.add('fade-out');
                 progressText.classList.remove('sending-animation');
-                progressFill.style.width = '0%';
-                stopButton.style.display = 'none';
-                stopButton.disabled = false;
-                shouldStop = false;
+                
+                // Wait for fade animation to complete
+                setTimeout(() => {
+                    sendProgress.style.display = 'none';
+                    sendProgress.classList.remove('fade-out');
+                    progressFill.style.width = '0%';
+                    stopButton.style.display = 'none';
+                    stopButton.disabled = false;
+                    shouldStop = false;
+                }, 800); // Match the CSS transition duration
+            }
+
+            // Update the email sending delay
+            async function sendEmail() {
+                const formData = new FormData(form);
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    // Add artificial delay to make progress more visible
+                    await new Promise(resolve => setTimeout(resolve, 800));
+                    return response.ok;
+                } catch (error) {
+                    console.error('Error sending email:', error);
+                    return false;
+                }
             }
 
             // Handle form submission
@@ -1397,21 +1424,6 @@
                 sendProgress.style.display = 'block';
                 if (isUnlimited) {
                     stopButton.style.display = 'block';
-                }
-
-                // Function to send email
-                async function sendEmail() {
-                    const formData = new FormData(form);
-                    try {
-                        const response = await fetch(form.action, {
-                            method: 'POST',
-                            body: formData
-                        });
-                        return response.ok;
-                    } catch (error) {
-                        console.error('Error sending email:', error);
-                        return false;
-                    }
                 }
 
                 let sentCount = 0;
