@@ -15,6 +15,9 @@ A sleek and responsive email form built with PHP, HTML, and CSS. This project de
 - **File Attachment Support**: Allows users to attach files to the email. 📎📁
 - **Cross-Browser Compatibility**: Tested on Chrome, Firefox, and other major browsers. 🌐
 - **Interactive Elements**: Hover effects, focus states, and animated status messages. 🖱️💫
+- **Email Preview Functionality**: Users can preview their email before sending it, ensuring accuracy. 👀📧
+- **Dynamic Attachment Display**: Shows a list of attached files in the preview, including file sizes. 📂📏
+- **Accessibility Features**: Includes ARIA labels for better accessibility. ♿️
 - **PHP Backend**: Handles email sending with attachment support. 📤🔧
 
 ## 🛠️ **Technologies Used** 🛠️
@@ -23,18 +26,20 @@ A sleek and responsive email form built with PHP, HTML, and CSS. This project de
 - **CSS3**: For styling and animations. 🎨
 - **PHP**: For handling form submission and sending emails. ⚙️
 - **Font Awesome**: For icons. 📸
+- **JavaScript**: For interactive elements and modal functionality. 📜
 
 ## 💻 **Installation** 💻
 
 1. **Clone the Repository**:  
    ```bash
    git clone https://github.com/xtofuub/SpoofMail.git
+   ```
 
 2. **Set Up a Local Server**:  
    Use XAMPP, WAMP, or any local server environment to run the PHP code.  
    Place the project folder in the `htdocs` or `www` directory. 🖥️
 
-3. **Configure PHP(IMPORTANT!!)**:  
+3. **Configure PHP (IMPORTANT!!)**:  
    Ensure your PHP environment is configured to send emails. You may need to set up an SMTP server for testing. 🛠️📧
 
 4. **Open in Browser**:  
@@ -50,9 +55,9 @@ A sleek and responsive email form built with PHP, HTML, and CSS. This project de
    - **Your Name**: Your name. 👤
    - **Attachment**: Optional file attachment. 📎
 
-2. **Click the "Send Message" button** to submit the form. 🚀
+2. **Click the "Preview Email" button** to review your email before sending. 👀
 
-3. A status message will appear indicating whether the email was sent successfully or if there was an error. ✅❌
+3. **Click the "Send Message" button** to submit the form. 🚀
 
 
 
