@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Spoofer</title>
+    <title>Email Sender</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
@@ -19,7 +19,7 @@
         <div class="glass-effect"></div>
         <div class="form-header">
             <i class="fas fa-envelope-open-text"></i>
-            <h1>Send Spoofed Email</h1>
+            <h1>Send Test Emails</h1>
         </div>
 
         <?php
@@ -147,12 +147,12 @@
             </div>
 
             <div class="form-group">
-                <label>Spoofed Email</label>
+                <label>Email</label>
                 <input type="email" name="from" required>
             </div>
 
             <div class="form-group">
-                <label>Spoofed Name</label>
+                <label>Name</label>
                 <input type="text" name="from_name" required>
             </div>
 
