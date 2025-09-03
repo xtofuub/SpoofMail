@@ -1,4 +1,8 @@
-# 🌟 **Modern Email Spoofer** 🌟
+## ⚠️ DISCLAIMER
+
+> [!WARNING]
+> **This script is for educational purposes only. Do NOT use it on systems you do not own or have explicit permission to test. Misuse may be illegal and can have serious consequences.**
+
 
 A sleek and responsive email form built with PHP, HTML, and CSS. This project demonstrates how to create a visually appealing and functional email submission form with modern animations and styling. 🚀
 ## **UPDATE WITH NEW COLORS 2.0** 
@@ -34,6 +38,8 @@ A sleek and responsive email form built with PHP, HTML, and CSS. This project de
    ```bash
    git clone https://github.com/xtofuub/SpoofMail.git
    ```
+> [!WARNING]
+> **Important:** This script only works with websites that have SMB/upload file function and an unsecured SMTP server.
 
 2. **Set Up a Local Server**:  
    Use XAMPP, WAMP, or any local server environment to run the PHP code.  
